@@ -1,0 +1,47 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="name">Nombre</label>
+    <input id="name" formControlName="name" class="form-control" />
+    <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-danger">
+      El nombre es obligatorio y debe tener al menos 3 caracteres.
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="description">Descripción</label>
+    <textarea id="description" formControlName="description" class="form-control"></textarea>
+    <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-danger">
+      La descripción es obligatoria.
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="price">Precio</label>
+    <input id="price" formControlName="price" type="number" class="form-control" />
+    <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-danger">
+      El precio es obligatorio y debe ser mayor o igual a 0.
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="category">Categoría</label>
+    <select id="category" formControlName="category" class="form-control">
+      <option value="">Seleccione una categoría</option>
+      <option value="hombre">Hombre</option>
+      <option value="mujer">Mujer</option>
+      <option value="niño">Niño</option>
+    </select>
+    <div *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched" class="text-danger">
+      Seleccione una categoría válida.
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label>
+      <input type="checkbox" formControlName="active" />
+      Activo
+    </label>
+  </div>
+  
+  <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Agregar Producto</button>
+</form>
