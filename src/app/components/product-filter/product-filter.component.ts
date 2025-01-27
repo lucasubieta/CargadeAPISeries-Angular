@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { IProduct } from '../../models/iproduct';
+import { IProduct } from '../../interface/iproduct';
 
 @Component({
   selector: 'app-product-filter',
   standalone: true,
   imports: [FormsModule],
   templateUrl: './product-filter.component.html',
-  styleUrl: './product-filter.component.scss',
+  styleUrl: './product-filter.component.css',
 })
 export class ProductFilterComponent {
   @Input() products: IProduct[] = [];

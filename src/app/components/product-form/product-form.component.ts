@@ -5,18 +5,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ProductServiceService } from '../../services/product-service.service';
-import { IProduct } from '../../models/iproduct';
 
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
+import { IProduct } from '../../interface/iproduct';
+import { ProductServiceService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-form',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './product-form.component.html',
-  styleUrl: './product-form.component.scss',
+  styleUrl: './product-form.component.css',
 })
 
 //Explicacion:

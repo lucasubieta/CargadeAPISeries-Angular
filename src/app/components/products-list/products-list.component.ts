@@ -1,15 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { IProduct } from '../../models/iproduct';
-import { ProductServiceService } from '../../services/product-service.service';
+
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { ProductFilterComponent } from '../../components/product-filter/product-filter.component';
+import { IProduct } from '../../interface/iproduct';
+import { ProductServiceService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   imports: [ProductCardComponent, ProductFilterComponent],
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss',
+  templateUrl: 'products-list.component.html',
+  styleUrl: './products-list.component.css',
 })
 export class ProductListComponent implements OnInit {
   arrProducts: IProduct[] = [];

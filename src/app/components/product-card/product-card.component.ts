@@ -1,24 +1,38 @@
-import { Component, Input } from '@angular/core';
-import { Product } from '../../services/product.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+//import { IProduct } from '../../models/iproduct';
+import { CommonModule } from '@angular/common';
+import { IProduct } from '../../interface/iproduct';
 
 @Component({
   selector: 'app-product-card',
+  standalone: true,
+  imports: [
+    CommonModule
+  ],
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.scss'],
+  styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
-  @Input() product!: Product;
+  //Recibe un producto del componente padre
+  @Input() product: IProduct = {
+    _id: '',
+    name: '',
+    description: '',
+    price: 0,
+    category: '',
+    image: '',
+    active: false
+  };
+
+  //Se podria poner asi porque sabemos que se va a inicializar antes de usarlo
+  // @Input() product!: IProduct;
+
+  //Envia un evento al componente padre
+  @Output() deleteProduct = new EventEmitter<IProduct>();
 
   onDelete(): void {
-    console.log(`Producto eliminado: ${this.product.name}`);
+    // console.log('Delete product:', this.product);
+    this.deleteProduct.emit(this.product);
   }
 
-  formatCurrency(value: number): string {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(value);
-  }
-  
 }
-
