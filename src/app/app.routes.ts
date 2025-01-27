@@ -4,17 +4,9 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 
 
 export const routes: Routes = [
-    {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'product-list'
-    },
-    {
-        path: 'product-list',
-        component: ProductListComponent
-    },
-    {
-        path: 'product-form',
-        component: ProductFormComponent
-    }
-];
+    { path: '', redirectTo: '/product-list', pathMatch: 'full' },
+    { path: 'product-list', component: ProductListComponent }, 
+    { path: 'product-form', component: ProductFormComponent }, 
+  ];
+
+
