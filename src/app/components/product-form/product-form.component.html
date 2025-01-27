@@ -105,7 +105,7 @@
           @if (checkControl('active', 'required')) {
             <div class="text-danger">El estado es obligatorio</div>
           }
-          <label for="active" class="form-check-label text-light fs-6">Activo</label>
+          <label for="active" class="form-check-label text-light fs-6">Activo | Inactivo</label>
         </div>
 
         <!-- Botones de acción -->
@@ -115,14 +115,14 @@
             class="btn btn-success px-4 py-2 rounded-3 fs-6"
             [disabled]="addProductForm.invalid"
           >
-            Guardar
+            AÑADIR PRODUCTO
           </button>
           <button
             type="button"
             class="btn btn-danger px-4 py-2 rounded-3 ms-2 fs-6"
             (click)="resetForm()"
           >
-            Borrar
+            LIMPIAR
           </button>
         </div>
       </form>
