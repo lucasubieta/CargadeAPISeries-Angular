@@ -1,34 +1,79 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-export interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  image: string;
-  active: boolean;
-}
+import { IProduct } from '../models/iproduct';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService {
-  private apiUrl = 'https://jsonblob.com/api/1313446273633935360';
+export class ProductServiceService {
+  private apiUrl = 'https://jsonblob.com/api/1331916356509163520';
+  private products: IProduct[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl);
+  // GetAll, podria hacerse con httpclient, pero JsonBlob no permite hacer todas las operaciones CRUD, solo GET y POST (y en memoria porque el front creo que no puede acceder a bbdd, es funcion del back, solo manejar la sesion). 
+  // Lo hago con un fetch dentro de una funcion para poder reutilizarlo y capturar errores.
+  async getProducts(): Promise<IProduct[]> {
+    if (this.products.length === 0) {
+      try {
+        const response = await fetch(this.apiUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`Error al obtener productos: ${response.statusText}`);
+        }
+        this.products = await response.json();
+      } catch (error) {
+        console.error('Error en la funcion getProducts:', error);
+        throw error;
+      }
+    }
+    return this.products;
   }
 
-  addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.apiUrl, product);
+  addProduct(product: IProduct): void {
+    this.products.push(product);
   }
 
-  deleteProduct(productId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${productId}`);
+  deleteProduct(id: string): void {
+    this.products = this.products.filter((product) => product._id !== id);
+  }
+
+  getCategories(): string[] {
+    const categorySet = new Set<string>(
+      this.products.map((product) => product.category)
+    );
+    return Array.from(categorySet);
+  }
+
+  filterProducts(filters: any): IProduct[] {
+    return this.products.filter((product) => {
+      const matchesName =
+        !filters.nombre ||
+        product.name.toLowerCase().includes(filters.nombre.toLowerCase());
+
+      const matchesCategory =
+        !filters.categoria || product.category.trim() === filters.categoria.trim();
+
+      const matchesMinPrice =
+        !filters.precioMin || product.price >= Number(filters.precioMin);
+
+      const matchesMaxPrice =
+        !filters.precioMax || product.price <= Number(filters.precioMax);
+
+      const matchesActive =
+        filters.activo === undefined ||
+        product.active === (filters.activo === 'true' || filters.activo === true);
+
+      return (
+        matchesName &&
+        matchesCategory &&
+        matchesMinPrice &&
+        matchesMaxPrice &&
+        matchesActive
+      );
+    });
   }
 }
