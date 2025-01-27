@@ -13,7 +13,6 @@ import { IProduct } from '../../interface/iproduct';
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
-  //Recibe un producto del componente padre
   @Input() product: IProduct = {
     _id: '',
     name: '',
@@ -24,14 +23,9 @@ export class ProductCardComponent {
     active: false
   };
 
-  //Se podria poner asi porque sabemos que se va a inicializar antes de usarlo
-  // @Input() product!: IProduct;
-
-  //Envia un evento al componente padre
   @Output() deleteProduct = new EventEmitter<IProduct>();
 
   onDelete(): void {
-    // console.log('Delete product:', this.product);
     this.deleteProduct.emit(this.product);
   }
 

@@ -19,8 +19,7 @@ import { ProductServiceService } from '../../services/product.service';
   styleUrl: './product-form.component.css',
 })
 
-//Explicacion:
-// Para jugar un poco con el control flow y ts he decidido que el cliente solo puede elegir una categoria de las que ya estan presentes en el array de jsonblob. Realmente no creo que fuese algo que se hiciese en un proyecto real porque tiene que cargar todos los productos en el contructor para buscar la categoria, un aliexpres por ej seria inpensable pero me parecia interesante hacerlo asi por practicar.
+
 export class ProductFormComponent {
   addProductForm!: FormGroup;
   submitted = false;
@@ -78,7 +77,6 @@ export class ProductFormComponent {
     this.addProductForm.reset();
   }
 
-  //Utilizo el uuidv4 para generar un id unico para cada producto
   onSubmit() {
     if (this.addProductForm.valid) {
       const formProduct = {

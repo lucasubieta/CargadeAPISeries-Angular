@@ -16,9 +16,6 @@ export class ProductListComponent implements OnInit {
   arrProducts: IProduct[] = [];
   filteredProducts: IProduct[] = [];
 
-  //Forma antigua
-  // constructor(private productService: ProductServiceService) { }
-
   productService = inject(ProductServiceService);
 
   async ngOnInit(): Promise<void> {

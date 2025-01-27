@@ -39,12 +39,7 @@ export class ProductFilterComponent {
   applyFilters(filterForm: NgForm): void {
     const values = { ...filterForm.value };
 
-    // if (values.precioMin && values.precioMax && values.precioMax < values.precioMin) {
-    //   alert('El precio máximo no puede ser menor que el precio mínimo.');
-    //   return;
-    // }
-
-    if (values.activo === 'true') {
+     if (values.activo === 'true') {
       values.activo = true;
     } else if (values.activo === 'false') {
       values.activo = false;
